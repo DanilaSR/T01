@@ -1,19 +1,19 @@
 #include "encode_decode.h"
 
-int encode(int string[3], int res[6]) {
-  int G[3][6] =  {{1, 0, 0, 1, 0, 1}, 
-                  {0, 1, 0, 1, 1, 1}, 
-                  {0, 0, 1, 0, 1, 1}};
+int encode(int string[3], int res[6], int G[3][6]) {
 
-  multiply(string, G, res);
+  for (int i = 0; i < 6; i++) {
+    int sum = 0;
+    for (int j = 0; j < 3; j++) {
+      sum += string[j] * G[j][i];
+    }
+    res[i] = sum;
+  }
+
   return 0;
 }
 
-int decode(int string[N]) {
-  int H[M][N] = {{1, 1, 0, 1, 0, 0},
-                 {0, 1, 1, 0, 1, 0},
-                 {1, 0, 0, 0, 1, 1},
-                 {0, 0, 1, 1, 0, 1}};
+int decode(int string[N], int H[M][N]) {
 
   double R[M][N];
   double E[M][N];
@@ -66,7 +66,7 @@ int decode(int string[N]) {
       }
     }
 
-    if (check(string) == 0 || I == I_max) {
+    if (check(string, H) == 0 || I == I_max) {
       break;
     } else {
       for (int i = 0; i < N; i++) {
@@ -91,24 +91,21 @@ int decode(int string[N]) {
   return 0;
 }
 
-int multiply(int string[3], int matrix[3][6], int res[6]) {
+// int multiply(int string[3], int matrix[3][6], int res[6]) {
 
-  for (int i = 0; i < 6; i++) {
-    int sum = 0;
-    for (int j = 0; j < 3; j++) {
-      sum += string[j] * matrix[j][i];
-    }
-    res[i] = sum;
-  }
+//   for (int i = 0; i < 6; i++) {
+//     int sum = 0;
+//     for (int j = 0; j < 3; j++) {
+//       sum += string[j] * matrix[j][i];
+//     }
+//     res[i] = sum;
+//   }
 
-  return 0;
-}
+//   return 0;
+// }
 
-int check(int string[N]) {
-  int H[M][N] = {{1, 1, 0, 1, 0, 0},
-                 {0, 1, 1, 0, 1, 0},
-                 {1, 0, 0, 0, 1, 1},
-                 {0, 0, 1, 1, 0, 1}};
+int check(int string[N], int H[M][N]) {
+
   int flag = 1;
   int sum = 0;
   for (int j = 0; j < M; j++) {

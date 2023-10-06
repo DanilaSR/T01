@@ -1,10 +1,19 @@
 #include "encode_decode.h"
 
 int main() {
+  int G[3][6] =  {{1, 0, 0, 1, 0, 1}, 
+                  {0, 1, 0, 1, 1, 1}, 
+                  {0, 0, 1, 0, 1, 1}};
+
+  int H[M][N] = {{1, 1, 0, 1, 0, 0},
+                 {0, 1, 1, 0, 1, 0},
+                 {1, 0, 0, 0, 1, 1},
+                 {0, 0, 1, 1, 0, 1}};
+
   int string[M] = {0, 0, 1};
   int res[N];
 
-  encode(string, res);
+  encode(string, res, G);
 
   printf("Посланное сообщение:\n");
   for (int i = 0; i < N; i++) {
@@ -26,7 +35,7 @@ int main() {
   }
   printf("\n");
 
-  decode(res);
+  decode(res, H);
 
   printf("Декодированное сообщение:\n");
   for (int i = 0; i < N; i++) {
